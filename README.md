@@ -29,12 +29,13 @@ git clone git@github.com:your-github-username/team-navigator.git
 ```
 - Install MongoDB
 ```
-brew install mongodb
+brew install mongodb@3.0
 ```
 - Install [NVM](https://github.com/creationix/nvm), [Node](https://nodejs.org/en/), and npm modules.
 ```
 brew install nvm
-nvm install 6
+nvm install 8
+nvm use 8
 yarn install
 ```
 - Copy over a .env file and replace all sensitive config, e.g. `SHEETS_URL=REPLACE`,
