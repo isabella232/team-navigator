@@ -2,14 +2,10 @@ export const memberAppGraphQLValues = `
 _id
 handle
 name
-namePronounciation
-nameAudioUrl
-email
 introEmail
 title
 floor
 city
-headshot
 team
 teamID
 subteam
@@ -17,7 +13,6 @@ subteamID
 productTeam
 productTeamID
 reportsTo
-roleText
 teamRank
 startDate
 slackHandle

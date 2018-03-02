@@ -2,7 +2,6 @@ import Lokka from 'lokka'
 import Transport from 'lokka-transport-http'
 import tree from 'universal-tree'
 import Index from '../views'
-import Seating from '../views/seating'
 import DidYouKnow from '../views/did-you-know'
 import {memberAppGraphQLValues} from "./member_query"
 

@@ -18,8 +18,6 @@ const audioIcon = readFileSync(path.join(__dirname, 'audio.svg'))
 const view = veact()
 const headshotSize = 100
 
-const { SLACK_TEAM_ID } = process.env
-
 const { div, h2, h3, nav, a, p, audio, source } = view.els()
 
 view.styles({
@@ -135,12 +133,9 @@ view.render(() => {
   const noDLhref = member.headshot.replace('?dl=1', '')
   const floorOrNothing = member.floor_id ? `, ${member.floor_id}` : ''
   const reportees = state.get('allMembers') && state.get('allMembers').filter(reportee => reportee.reportsTo === member.name)
-  const slackClickLink = `slack://user?team=${SLACK_TEAM_ID}&id=${member.slackID}`
-  const calendarLink = `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`
   const mailTo = `mailto:${member.email}artsymail.com`
   const github = `https://github.com/${member.githubHandle}`
   const reportsTo = member.reportsTo && find(state.get('allMembers'), { 'name': member.reportsTo })
-  const profile = member.slackProfile
   const playAudio = () => {
     document.getElementById('audio').play()
   }
@@ -163,9 +158,7 @@ view.render(() => {
         p('.job', member.title),
         p('.location', `${member.city}${floorOrNothing}`),
         nav('.nav', [
-          a('.navItemChat', { href: slackClickLink, dangerouslySetInnerHTML: { __html: member.slackPresence ? activeChat : chat } }),
           a('.navItem', { href: mailTo, dangerouslySetInnerHTML: { __html: email } }),
-          a('.navItem', { href: calendarLink, dangerouslySetInnerHTML: { __html: calendar } }),
           member.githubHandle ? a('.navItem', { href: github, dangerouslySetInnerHTML: { __html: githubCat } }) : ''
         ]),
       ),
@@ -176,14 +169,6 @@ view.render(() => {
         member.startDate ? p('.list', `Joined: ${moment(member.startDate).fromNow()}`) : '',
         member.timeZone ? p('.list', `Time Zone: ${member.timeZone}`) : '',
       ]),
-      // Social Related
-      profile && (profile.facebook_url || profile.twitter_url || profile.instagram_url || profile.website_url)
-         ? div('.section', [
-           profile.facebook_url ? p('.list', a('.grey', {href: profile.facebook_url}, `Facebook: ${profile.facebook}`)) : '',
-           profile.twitter ? p('.list', a('.grey', {href: profile.twitter_url}, `Twitter: @${profile.twitter}`)) : '',
-           profile.instagram ? p('.list', a('.grey', {href: profile.instagram_url}, `Instagram: @${profile.instagram}`)) : '',
-           profile.website ? p('.list', a('.grey', {href: profile.website_url}, `Site: ${profile.website}`)) : ''
-         ]) : '',
       div('.section', [
         member.feedbackFormUrl ? a('.feedback', { href: member.feedbackFormUrl }, `Click to give ${member.name} feedback`) : ''
       ]),
